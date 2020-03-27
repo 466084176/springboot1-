@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkmk.student.mapper.CourseMapper">
+    <resultMap type="com.mkmk.student.bean.Course" id="CourseResultMap">
+        <id column="Cno" property="Cno"/>
+        <result column="Cname" property="Cname"/>
+        <result column="Cpno" property="Cpno"/>
+        <result column="Ccredit" property="Ccredit"/>
+    </resultMap>
+
+    <select id="QueryCourse" resultMap="CourseResultMap" resultType="com.mkmk.student.bean.Course">
+        SELECT * FROM course
+    </select>
+    <select id="QueryCnoByCname" resultType="com.mkmk.student.bean.Course">
+        SELECT * FROM course WHERE Cname=#{cname}
+    </select>
+    <select id="QueryCourseByCno" resultType="com.mkmk.student.bean.Course">
+        SELECT * FROM course WHERE Cno=#{cno}
+    </select>
+    <update id="UpdateCourse">
+        UPDATE course SET Cname=#{Cname},Cpno=#{Cpno},Ccredit=#{Ccredit} WHERE Cno=#{Cno}
+    </update>
+    <delete id="DeleteCourse">
+        DELETE FROM course WHERE Cno=#{cno}
+    </delete>
+    <insert id="InsertCourse">
+        INSERT INTO course SET Cno=#{Cno},Cname=#{Cname},Cpno=#{Cpno},Ccredit=#{Ccredit}
+    </insert>
+
+</mapper>

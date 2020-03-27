@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkmk.student.mapper.GradeMapper">
+    <resultMap type="com.mkmk.student.bean.Grade" id="GradeResultMap">
+        <result column="Cname" property="Cname"/>
+        <result column="Score" property="Score"/>
+    </resultMap>
+
+    <select id="getStudentGrade" resultMap="GradeResultMap">
+        SELECT Cname,Score FROM (SELECT sc.Sno,course.Cno,Cname,Score FROM course LEFT JOIN sc ON course.Cno=sc.Cno) AS a WHERE Sno=#{sno};
+    </select>
+
+    <select id="QueryBySnoAndCno" resultType="com.mkmk.student.bean.SC">
+        SELECT * FROM sc WHERE Sno=#{sno} AND Cno=#{cno}
+    </select>
+
+    <delete id="DeleteStudentScore">
+        DELETE  FROM sc WHERE Sno=#{sno} AND Cno=#{cno}
+    </delete>
+
+    <update id="UpdateStudentScore">
+        UPDATE sc SET Score=#{Score} WHERE Sno=#{Sno} AND Cno=#{Cno}
+    </update>
+
+    <insert id="InsertStudentScore">
+        INSERT INTO sc SET Sno=#{Sno},Cno=#{Cno},Score=#{Score}
+    </insert>
+
+
+</mapper>

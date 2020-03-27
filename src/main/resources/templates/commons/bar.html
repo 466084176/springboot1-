@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--顶部部分-->
+<div class="ui grid" th:fragment="topbar">
+    <div class="eight wide column">
+        <div class="ui attached" style="float: right">
+            <div class="ui left icon input">
+                <input type="text" placeholder="搜索……">
+                <i class="book icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="eight wide column">
+        <a href="#" th:href="@{/logout/}" class=" ui teal  basic button " style="float: right">退出</a>
+    </div>
+</div>
+<!--旁边导航栏-->
+<div class=" three wide column" th:fragment="sidebar">
+    <div class="ui vertical inverted sidebar menu left overlay visible" >
+        <div class="ui item" style="height: 50px"><p style="text-align: center; font-size: x-large;font-family: 方正粗黑宋简体;color: lightpink;">
+            [[${session.nickname}]]</p>
+        </div>
+        <div class="ui large active item"
+        th:class="${acticeUrl=='data.html'?'ui large active item':'ui large item'}">
+            <div class="ui center " style="text-align: center">
+                <a href="#" th:href="@{/Log/show}">学生信息</a>
+            </div>
+        </div>
+        <div class="ui large item"
+             th:class="${acticeUrl=='cour.html'?'ui large active item':'ui large item'}">
+            <div class="ui center " style="text-align: center">
+                <a href="#" th:href="@{/cou}">课程详情</a>
+            </div>
+        </div>
+        <div class="ui large item"
+             th:class="${acticeUrl=='add.html'?'ui large active item':'ui large item'}">
+            <div class="ui center " style="text-align: center">
+                <a href="#" th:href="@{/stu}">添加学生</a>
+            </div>
+        </div>
+        <div class="ui large item"
+             th:class="${acticeUrl=='addcou.html'?'ui large active item':'ui large item'}">
+            <div class="ui center " style="text-align: center">
+                <a href="#" th:href="@{/cou/add}">添加课程</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

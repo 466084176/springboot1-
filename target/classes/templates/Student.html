@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>成绩详情</title>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script th:src="@{/js/echarts.min.js}"></script>
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/js/semantic.min.js}"></script>
+</head>
+
+<body class="me-body-img">
+<div>
+    <div class="ui grid">
+        <!--左边导航栏部分-->
+        <div th:replace="~{commons/bar::sidebar(acticeUrl='addcou.html')}"></div>
+        <!--中间部分-->
+        <div class="thirteen wide column">
+            <!--上边搜索导航栏-->
+            <div class="ui segment">
+                <div th:replace="~{commons/bar :: topbar}"></div>
+            </div>
+            <!--下边部分-->
+            <div class="ui grid">
+                <div class="one wide column"></div>
+                <!--内容部分-->
+                <div class="fourteen wide column">
+                    <div class="four wide column"></div>
+                    <!--表格部分-->
+                    <div class="eight wide column">
+                        <table class="ui small grey table">
+                            <thead>
+                            <tr>
+                                <th>课程名</th>
+                                <th>分数</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="grade:${studentGrade}">
+                                <td th:text="${grade.Cname}">Java</td>
+                                <td th:text="${grade.Score}">34</td>
+                                <td>
+                                    <div class="ui small buttons">
+                                        <a href="#" th:href="@{/gra/up/(sname=${studentName},cname=${grade.Cname})}" class="ui pink basic button">Update</a>
+                                        <div class="or"></div>
+                                        <a href="#" th:href="@{/gra/del/(sname=${studentName},cname=${grade.Cname})}" class="ui teal basic button">Delete</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="ui attached field">
+                        <a href="#" th:href="@{/gra/add/}+${studentName}" class="ui small pink basic button" style="float: right">添加成绩</a>
+                    </div>
+                    <div class="four wide column"></div>
+                    <!--图表区-->
+                    <div style="width: 100%;height: 35em; margin-top: 4em !important;" id="main"></div>
+                    <script th:inline="javascript">
+                        var myChart = echarts.init(document.getElementById('main'))
+                        var xdata = [];
+                        var ydata = [];
+                        var studentscore = [[${studentGrade}]];
+                        for (var i = 0; i < studentscore.length; i++) {
+                            xdata.push(studentscore[i].cname);
+                            ydata.push(studentscore[i].score);
+                        }
+                        var option = {
+                            title: {
+                                text: [[${studentName}]] + '的成绩'
+                            },
+                            tooltip: {},
+                            legend: {
+                                data: xdata
+                            },
+                            xAxis: {
+                                data: xdata
+                            },
+                            yAxis: {},
+                            series: [{
+                                name: '成绩',
+                                type: 'bar',
+                                barWidth: 40,
+                                data: ydata,
+                                itemStyle: {
+                                    normal: {
+                                        color: function (params) {
+                                            var colorList = ["#3398db", "#434348", "#90ed7d", "#f7a35c", "#61a0a8", "#61a0a8", "#91c7ae", "#2f4554"];
+                                            return colorList[params.dataIndex];
+                                        },
+                                        label: {
+                                            show: true,
+                                            position: 'top',
+                                            //表示柱状图中显示数据的值
+                                            formatter: '{c}'
+                                            //表示柱状图中显示数据的值以及对应的名称的数量
+                                            <!-- formatter: '{b}\n{c}' -->
+
+                                        }
+                                    },
+                                }
+                            }]
+                        };
+                        // 使用刚指定的配置项和数据显示图表。
+                        myChart.setOption(option);
+                    </script>
+                </div>
+                <div class="one wide column"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

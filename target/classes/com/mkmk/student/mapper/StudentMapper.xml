@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkmk.student.mapper.StudentMapper">
+    <resultMap type="com.mkmk.student.bean.Student" id="StudentResultMap">
+        <id column="id" property="id"/>
+        <result column="Sno" property="Sno"/>
+        <result column="Sname" property="Sname"/>
+        <result column="Ssex" property="Ssex"/>
+        <result column="Sage" property="Sage"/>
+        <result column="Sdept" property="Sdept"/>
+    </resultMap>
+
+    <select id="QueryStudentById" resultMap="StudentResultMap" resultType="com.mkmk.student.bean.Student">
+        SELECT * FROM student WHERE id=#{id}
+    </select>
+    <select id="QueryStudentBySex" resultMap="StudentResultMap">
+        SELECT * FROM student WHERE Ssex=#{sex}
+    </select>
+    <select id="QueryStudentBySno" resultType="com.mkmk.student.bean.Student">
+        SELECT * FROM student WHERE Sno=#{sno}
+    </select>
+    <select id="QueryStudentBySname" resultType="com.mkmk.student.bean.Student">
+        SELECT * FROM student WHERE Sname=#{sname}
+    </select>
+    <delete id="DeleteStudentBySno">
+        DELETE FROM student WHERE Sno=#{sno}
+    </delete>
+    <update id="UpdateStudent">
+        UPDATE student SET Sname=#{Sname},Ssex=#{Ssex},Sage=#{Sage},Sdept=#{Sdept} WHERE Sno=#{Sno}
+    </update>
+    <insert id="InsertStudent">
+        INSERT INTO student SET id=#{Id}, Sno=#{Sno},Sname=#{Sname},Ssex=#{Ssex},Sage=#{Sage},Sdept=#{Sdept}
+    </insert>
+
+
+</mapper>

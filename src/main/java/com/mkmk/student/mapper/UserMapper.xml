@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mkmk.student.mapper.UserMapper">
+    <resultMap type="com.mkmk.student.bean.UserLogIn" id="UserResultMap">
+        <id column="Id" property="Id"/>
+        <result column="username" property="UserName"/>
+        <result column="password" property="PassWord"/>
+        <result column="nickName" property="NickName"/>
+    </resultMap>
+
+    <select id="getUserByUserName" resultType="com.mkmk.student.bean.UserLogIn">
+        SELECT * FROM user WHERE username=#{username}
+    </select>
+    <select id="getIdByUsername" resultType="com.mkmk.student.bean.UserLogIn">
+        SELECT * FROM  user  WHERE username=#{username}
+    </select>
+
+
+</mapper>

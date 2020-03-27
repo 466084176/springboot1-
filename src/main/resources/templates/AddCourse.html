@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>添加课程</title>
+    <link rel="stylesheet" th:href="@{/css/me.css}">
+    <link rel="stylesheet" th:href="@{/css/semantic.min.css}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+    <script th:src="@{/js/jquery-3.4.1.min.js}"></script>
+    <script th:src="@{/js/semantic.min.js}"></script>
+</head>
+<body class="me-body-img">
+<div>
+    <div class="ui grid">
+        <!--左边导航栏部分-->
+        <div th:replace="~{commons/bar::sidebar(acticeUrl='addcou.html')}"></div>
+        <!--中间部分-->
+        <div class="thirteen wide column">
+            <!--上边搜索导航栏-->
+            <div class="ui segment">
+                <div th:replace="~{commons/bar :: topbar}"></div>
+            </div>
+            <!--下边部分-->
+            <div class="ui attached grid">
+                <div class="one wide column"></div>
+                <!--内容部分-->
+                <div class="fourteen wide column">
+                    <!--添加数据部分-->
+                    <div class="attached">
+                        <form class="ui form" action="#" th:action="${course==null}?@{/cou/insert}:@{/cou/Update}" method="post">
+                            <div class="ui fields">
+                                <div class="ui four wide field">
+                                    <label>课程号</label>
+                                    <input type="text" name="Cno" id="Cno" th:value="${course!=null}?${course.Cno}" placeholder="课程号">
+                                </div>
+                                <div class="ui four wide field">
+                                    <label>课程名</label>
+                                    <input type="text" name="Cname" id="Cname" th:value="${course!=null}?${course.Cname}" placeholder="课程名">
+                                </div>
+                                <div class="ui four wide field">
+                                    <label>先修课程</label>
+                                    <select class="ui dropdown input" name="Cpno" id="Cpno">
+                                        <option th:each="name:${courseName}" th:value="${name}" th:selected="${name==CpnoName}" th:text="${name}">无</option>
+                                    </select>
+                                </div>
+                                <div class="ui four wide field">
+                                    <label>学分</label>
+                                    <input type="text" name="Ccredit" id="Ccredit" th:value="${course!=null}?${course.Ccredit}" placeholder="学分">
+                                </div>
+                            </div>
+                            <div style="float: right;">
+                                <button type="submit" class="ui pink basic button" th:text="${course!=null}?'修改':'添加'" value="添加"></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="one wide column"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
